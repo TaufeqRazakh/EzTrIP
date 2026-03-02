@@ -1,17 +1,21 @@
 # EzTrIP
 A transformer based machine learned interatomic potential with secret sauce
 
-# How to
-- Download source
-- Install tool with uv
+## How to
+1. Download source
 ```shell
-uv tool install .
+https://github.com/TaufeqRazakh/EzTrIP.git
+cd EzTrIP
 ```
-- Run in shell, see output
+1. Install with [uv](https://docs.astral.sh/uv/)
 ```shell
-eztrip
+uv sync
 ```
-- Cleanup with
+1. Run in shell, see output
+```shell
+uv run eztrip
 ```
-uv tool uninstall eztrip
+1. Since [pytest](https://docs.pytest.org/en/stable/) and is already installed as a dependency you can modify code and run tests with
+```shell
+uv run pytest
 ```
