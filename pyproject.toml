@@ -5,9 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "ase",
+    "matscipy",
     "numpy>=2.4.2",
     "pytest>=9.0.2",
     "torch==2.6.0",
+    "torch-geometric",
 ]
 
 [tool.uv]
@@ -21,7 +24,6 @@ torch = [
   { index = "pytorch-cu124", marker = "sys_platform == 'linux'"},
   { index = "PyPI", marker = "sys_platform != 'linux'"}
 ]
-
 
 [[tool.uv.index]]
 name = "PyPI"
