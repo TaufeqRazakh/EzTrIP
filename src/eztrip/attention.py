@@ -3,7 +3,7 @@ import torch.nn as nn
 from torch.nn.functional import softmax
 
 class Attention(nn.Module):
-    def __init__(self, embedding_dim, attention_size, attention_dropout=0.5):
+    def __init__(self, embedding_dim, attention_size, attention_dropout=0.1):
         super().__init__()
         self.wk = nn.Linear(embedding_dim, attention_size, bias=False)
         self.wq = nn.Linear(embedding_dim, attention_size, bias=False)

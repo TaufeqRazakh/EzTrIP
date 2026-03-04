@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 class FeedForward(nn.Module):
-    def __init__(self, embedding_dim, dropout_p):
+    def __init__(self, embedding_dim, dropout_p=0.0):
         super().__init__()
         self.linear1 = nn.Linear(embedding_dim, embedding_dim*4)
         self.dropout = nn.Dropout(dropout_p)
