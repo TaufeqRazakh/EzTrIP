@@ -21,7 +21,7 @@ class Attention(nn.Module):
         k = self.wk(k) # [batch_size, seq_length, attention_size]
         q = self.wq(q)
         v = self.wv(v)
-        scores = torch.bmm(k, q.transpose(1,2))
+        scores = torch.bmm(q, k.transpose(1,2))
         if mask is not None:
             scores = scores.masked_fill(mask, -float('inf'))
         scores = scores / (k.shape[-1] ** 0.5)
