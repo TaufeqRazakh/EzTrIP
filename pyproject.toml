@@ -9,12 +9,17 @@ dependencies = [
     "matscipy",
     "numpy>=2.4.2",
     "pytest>=9.0.2",
+    "pyyaml>=6.0.3",
     "torch==2.6.0",
     "torch-geometric",
 ]
 
 [tool.uv]
 package = true
+environments = [
+    "sys_platform == 'darwin'",
+    "sys_platform == 'linux'",
+]
 
 [project.scripts]
 eztrip = "eztrip.main:main"
