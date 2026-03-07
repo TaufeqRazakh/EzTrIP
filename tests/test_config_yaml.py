@@ -1,7 +1,7 @@
 import yaml
 from pathlib import Path
 
-CONFIG_PATH = Path(__file__).parent / '../configs/config-train.yaml'
+CONFIG_PATH = Path(__file__).parent / 'test_inputs/config-train.yaml'
 
 def test_config_file_exists():
 	print(CONFIG_PATH)

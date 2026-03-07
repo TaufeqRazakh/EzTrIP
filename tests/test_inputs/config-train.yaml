@@ -1,0 +1,30 @@
+device: cuda
+
+epochs: 100
+make_checkpoint_every_n_epoch: 5
+save_checkpoint_path: checkpoints/
+load_checkpoint_path: null
+seed: 42
+val_split: 0.1
+
+data:
+  batch_size: 32
+  data_path: ../training-data/md.xyz
+
+r_cut: 5.0
+
+architecture:
+  embedding_dim: 128
+  attention_size: 128
+  n_heads: 4
+  n_layers: 3
+
+optimizer:
+  name: Adam
+  lr: 1e-3
+  weight_decay: 0.0
+
+scheduler:
+  scheme: StepLR
+  step_size: 10
+  gamma: 0.5
