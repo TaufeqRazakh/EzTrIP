@@ -16,7 +16,7 @@ def test_forces_from_input():
     print(forces[0].shape)
     print(f'The forces for all frames have length {len(forces)}')
     print(f'The forces for a single frame have length {forces[0].shape}')
-    assert len(forces) > 0 , "Failed to read energies from input file"    
+    assert len(forces) > 0 , "Failed to read forces from input file"    
 
 def test_ase_energy_shape():
     energies = []
@@ -24,10 +24,8 @@ def test_ase_energy_shape():
         energies.append(torch.tensor(structure.get_total_energy()))
     print(f'The energies for all frames have length {len(energies)}')
 
-    all_species = [np.array(frame.get_atomic_numbers()) for frame in training_structures]
-    all_species = np.concatenate(all_species, axis=0)
-    all_species = np.sort(np.unique(all_species))
-
+    all_species = get_all_species(training_structures)
+    
     self_contributions = get_self_contributions(
             training_structures, all_species
         )
@@ -35,6 +33,6 @@ def test_ase_energy_shape():
     train_energies = get_corrected_energies(
             training_structures, all_species, self_contributions
         )
-    print(f'The energies from the self self_contributions are {train_energies.shape}')
-    # print(train_energies)
+    print(f'The energies from the self self_contributions are {train_energies.shape[0]}')
+    assert train_energies.shape[0] > 0 , "Failed to read energies from input file"    # print(train_energies)
 
