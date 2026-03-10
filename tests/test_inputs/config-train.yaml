@@ -1,4 +1,4 @@
-device: cuda
+device: cpu
 
 epochs: 100
 make_checkpoint_every_n_epoch: 5
@@ -9,7 +9,7 @@ val_split: 0.1
 
 data:
   batch_size: 32
-  data_path: ../training-data/md.xyz
+  data_path: tests/test_inputs/raw_dir/md.xyz
 
 r_cut: 5.0
 
@@ -21,7 +21,7 @@ architecture:
 
 optimizer:
   name: Adam
-  lr: 1e-3
+  lr: 0.001
   weight_decay: 0.0
 
 scheduler:
