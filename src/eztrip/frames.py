@@ -78,38 +78,31 @@ class MDFrames(InMemoryDataset):
         atoms_path = Path(self.raw_dir) / self.name
         atoms_data = read(atoms_path, ':')
 
-        forces = []
-        for atoms_frame in atoms_data:
-            forces.append(torch.tensor(atoms_frame.get_forces()))
+        data_list = []
         all_species = get_all_species(atoms_data)
         self_contributions = get_self_contributions(atoms_data, all_species)
         energies = get_corrected_energies(atoms_data, all_species,
                                           self_contributions)
 
-        # self.save(self.process_set('train'), self.processed_paths[0])
-        # self.save(self.process_set('test'), self.processed_paths[1])
+        for i, atoms_frame in enumerate(atoms_data):
+            pos = torch.tensor(atoms_frame.get_positions(), dtype=torch.float)
+            z = torch.tensor(atoms_frame.get_atomic_numbers(), dtype=torch.long)
+            f = torch.tensor(atoms_frame.get_forces(), dtype=torch.float)
+            
+            energy = energies[i]
+            if not isinstance(energy, torch.Tensor):
+                energy = torch.tensor([energy], dtype=torch.float)
+            elif energy.dim() == 0:
+                energy = energy.unsqueeze(0)
 
-    def process_set(self, dataset: str) -> List[Data]:
-        categories = glob.glob(osp.join(self.raw_dir, '*', ''))
-        categories = sorted([x.split(os.sep)[-2] for x in categories])
-
-        data_list = []
-        for target, category in enumerate(categories):
-            folder = osp.join(self.raw_dir, category, dataset)
-            paths = glob.glob(f'{folder}/*.off')
-            for path in paths:
-                data = read_off(path)
-                assert data.pos is not None
-                data.pos = data.pos - data.pos.mean(dim=0, keepdim=True)
-                data.y = torch.tensor([target])
-                data_list.append(data)
+            data = Data(pos=pos, z=z, f=f, y=energy)
+            data_list.append(data)
 
         if self.pre_filter is not None:
             data_list = [d for d in data_list if self.pre_filter(d)]
-
         if self.pre_transform is not None:
             data_list = [self.pre_transform(d) for d in data_list]
 
-        return data_list
+        self.save(data_list, self.processed_paths[0])
 
 __all__ = ["MDFrames"]
