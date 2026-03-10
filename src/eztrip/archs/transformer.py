@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from eztrip.multi_head_attention import MultiHeadAttention
-from eztrip.feed_forward import FeedForward
+from eztrip.archs.multi_head_attention import MultiHeadAttention
+from eztrip.archs.feed_forward import FeedForward
 
 class Decoder(nn.Module):
     def __init__(self, embedding_dim, attention_size,

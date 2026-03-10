@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from eztrip.transformer import Decoder
+from eztrip.archs.transformer import Decoder
 
 def test_decoder_output_shape():
     """

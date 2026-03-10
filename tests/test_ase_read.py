@@ -4,7 +4,7 @@ import torch
 import numpy as np
 from eztrip.energy_corrector import *
 
-XYZ_PATH = Path(__file__).parent / 'test_inputs/md.xyz'
+XYZ_PATH = Path(__file__).parent / 'test_inputs/raw/md.xyz'
 training_structures = read(XYZ_PATH, index = ':')
 
 def test_forces_from_input():    

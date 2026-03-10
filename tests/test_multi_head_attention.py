@@ -1,5 +1,5 @@
 import torch
-from eztrip.multi_head_attention import MultiHeadAttention
+from eztrip.archs.multi_head_attention import MultiHeadAttention
 
 def test_attention_output_shape():
     embedding_dim = 20

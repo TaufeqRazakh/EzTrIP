@@ -1,5 +1,5 @@
 import torch
-from eztrip.feed_forward import FeedForward
+from eztrip.archs.feed_forward import FeedForward
 
 def test_feed_forward_output_shape():
     """

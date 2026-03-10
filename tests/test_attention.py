@@ -1,5 +1,5 @@
 import torch
-from eztrip.attention import Attention
+from eztrip.archs.attention import Attention
 
 def test_attention_output_shape():
     embedding_dim = 20

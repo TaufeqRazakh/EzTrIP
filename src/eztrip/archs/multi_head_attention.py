@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from eztrip.attention import Attention
+from eztrip.archs.attention import Attention
 
 class MultiHeadAttention(nn.Module):
     def __init__(self, embedding_dim, attention_size,
