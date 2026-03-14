@@ -2,14 +2,11 @@ import glob
 import os
 import os.path as osp
 from typing import Callable, List, Optional
-from eztrip.energy_corrector import (
-    get_all_species, get_corrected_energies,
-    get_self_contributions
-    )
+from ase.calculators.emt import EMT
 import torch
 from pathlib import Path
 from ase.io import read
-
+import numpy as np
 from torch_geometric.data import (
     Data,
     InMemoryDataset,
@@ -79,10 +76,10 @@ class MDFrames(InMemoryDataset):
         atoms_data = read(atoms_path, ':')
 
         data_list = []
-        all_species = get_all_species(atoms_data)
-        self_contributions = get_self_contributions(atoms_data, all_species)
-        energies = get_corrected_energies(atoms_data, all_species,
-                                          self_contributions)
+        calc = EMT()
+        for frame in atoms_data:
+            frame.calc = calc
+        energies = np.array([frame.get_total_energy() for frame in atoms_data])
 
         for i, atoms_frame in enumerate(atoms_data):
             pos = torch.tensor(atoms_frame.get_positions(), dtype=torch.float)
