@@ -13,8 +13,7 @@ from pathlib import Path
 def train_model(config):
     data_path = Path(config['data']['data_path'])
     print(f'root is {data_path.parents[1]} and filename is {data_path.name}')
-    atoms_dataset = MDFrames(root=str(data_path.parents[1]),
-                              name=data_path.name)
+    atoms_dataset = MDFrames(root=str(data_path.parents[1]))
     
 #     
 #     
